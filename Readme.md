@@ -1,0 +1,17 @@
+# 目录结构
+1. node_modules
+2. src：源代码
+   1. app：Koa实例的配置和导出
+      1. keys：存放公钥和私钥
+      2. config.js：导出配置信息
+      3. database.js：连接数据库，导出连接池
+      4. error-handlers：错误时的处理
+      5. index.js：导出Koa实例app
+   2. constants：存放常量
+   3. controller：控制层，承上启下
+   4. middleware：中间件层，一般负责在执行controller前做一些处理
+   5. router：路由，请求的分配
+   6. service：主要任务是与数据库进行交互
+   7. utils：一些工具方法会放在这里
+   8. main.js：项目启动入口文件
+3. .env：环境配置
