@@ -47,9 +47,7 @@ class AgentController {
         const jsonInfo = ctx.request.body;
         const mes = await service.saveJson(jsonInfo);
         //返回
-        ctx.body = {
-            message: `id为${jsonInfo.id}的JSON${mes}~`
-        };
+        ctx.body = `id为${jsonInfo.id}的JSON${mes}~`;
         await next();
     }
 }
