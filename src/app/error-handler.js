@@ -26,8 +26,12 @@ const errorHandler = (err, ctx) => {
             message = '用户名或密码错误';
             break;
         case errorTypes.UNAUTHORIZATION: 
-            status = 401; //Bad request
+            status = 401; //Unauthorized
             message = '无效token，需要重新登录';
+            break;
+        case errorTypes.NOT_A_JSON:
+            status = 400; //Bad request
+            message = '数据不是json格式';
             break;
         default:
             status = 408;

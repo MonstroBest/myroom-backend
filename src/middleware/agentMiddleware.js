@@ -1,6 +1,7 @@
 const errorTypes = require("../constants/error-types");
 const { getAgentName } = require("../service/agentService");
 const passwordHandler = require("../utils/password-handler");
+const { jsonValidate } = require("../utils");
 /**
  * 经纪人注册校验，验证用户名、密码是否为空、用户名是否已被注册
  * @param {*} ctx
@@ -65,10 +66,25 @@ const verifyLogin = async (ctx, next) => {
 
     await next();
 };
+/**
+ * 检查是否是合法JSON
+ * @param {*} ctx 
+ * @param {*} next 
+ * @returns 
+ */
+const jsonValidator = async (ctx, next) => {
+    const { json } = ctx.request.body;
+    if (!jsonValidate(json)) {
+        const error = new Error(errorTypes.NOT_A_JSON);
+        return ctx.app.emit("error", error, ctx);
+    }
+    await next();
+}
 
 module.exports = {
     userValidator,
     verifyAgent,
     handlePassword,
-    verifyLogin
+    verifyLogin,
+    jsonValidator
 };

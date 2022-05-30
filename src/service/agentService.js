@@ -23,6 +23,45 @@ class AgentService {
         const result = await connections.execute(statement, [username, password, name]);
         return result[0];
     }
+    /**
+     * 存储json
+     * @param {*} json 
+     * @returns 
+     */
+    async saveJson(jsonInfo) {
+        const { json, id } = jsonInfo;
+        const jsonResult = await this.getJsonById(id);
+        // 未存储过，进行存储
+        if (!jsonResult.length) {
+            const statement = `INSERT INTO json_table (json_id, json_value) VALUES (?, ?);`;
+            await connections.execute(statement, [id, json]);
+            return '存储成功';
+        } else { // 存储过，进行修改
+            await this.updateJsonById(json, id);
+            return `修改成功`;
+        }
+    }
+    /**
+     * 根据id查询对应json
+     * @param {*} id json的id
+     * @returns 
+     */
+    async getJsonById(id) {
+        const statement = `SELECT * from json_table WHERE json_id = ?;`
+        const result = await connections.execute(statement, [id]);
+        return result[0];
+    }
+    /**
+     * 根据id更新对应json
+     * @param {*} json 
+     * @param {*} id 
+     * @returns 
+     */
+    async updateJsonById(json, id) {
+        const statement = `UPDATE json_table SET json_value = ? WHERE json_id = ?;`
+        const result = await connections.execute(statement, [json, id]);
+        return result[0];
+    }
 }
 
 module.exports = new AgentService();

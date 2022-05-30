@@ -18,6 +18,11 @@ class AgentController {
         };
         await next();
     }
+    /**
+     * 经纪人登录
+     * @param {*} ctx 
+     * @param {*} next 
+     */
     async login(ctx, next) {
         const { username, password } = ctx.request.body;
         // 签名，颁发认证
@@ -32,6 +37,20 @@ class AgentController {
             message: `登录成功！${username}，欢迎~`,
             token
         };
+    }
+    /**
+     * 存储json
+     * @param {*} ctx 
+     * @param {*} next 
+     */
+    async saveJson(ctx, next) {
+        const jsonInfo = ctx.request.body;
+        const mes = await service.saveJson(jsonInfo);
+        //返回
+        ctx.body = {
+            message: `id为${jsonInfo.id}的JSON${mes}~`
+        };
+        await next();
     }
 }
 

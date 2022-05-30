@@ -4,7 +4,8 @@ const Router = require('koa-router');
 // controller中的方法
 const {
     createAgent,
-    login
+    login,
+    saveJson
 } = require('../controller/agentController');
 
 const {
@@ -12,6 +13,7 @@ const {
     verifyAgent,
     handlePassword,
     verifyLogin,
+    jsonValidator
 } = require('../middleware/agentMiddleware');
 
 const agentRouter = new Router({ prefix: '/agent' });
@@ -19,5 +21,7 @@ const agentRouter = new Router({ prefix: '/agent' });
 agentRouter.post('/registerAgent', userValidator, verifyAgent, handlePassword, createAgent);
 
 agentRouter.post('/login', userValidator, handlePassword, verifyLogin, login)
+// 校验json是否合法，是的话将json列表存入数据库
+agentRouter.post('/saveJson', jsonValidator, saveJson);
 
 module.exports = agentRouter;
