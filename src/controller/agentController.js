@@ -14,10 +14,7 @@ class AgentController {
         const { username, password } = user;
         //返回
         ctx.body = {
-            message: `注册成功！${username}，欢迎~`,
-            username,
-            password,
-
+            message: `注册成功！${username}，欢迎~`
         };
         await next();
     }
