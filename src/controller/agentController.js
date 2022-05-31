@@ -45,9 +45,12 @@ class AgentController {
      */
     async saveJson(ctx, next) {
         const jsonInfo = ctx.request.body;
-        const mes = await service.saveJson(jsonInfo);
+        const { message, id } = await service.saveJson(jsonInfo);
         //返回
-        ctx.body = `id为${jsonInfo.id}的JSON${mes}~`;
+        ctx.body = {
+            message: `id为${id.toString()}的JSON${message}~`,
+            id
+        };
         await next();
     }
 }

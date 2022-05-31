@@ -13,7 +13,8 @@ const {
     verifyAgent,
     handlePassword,
     verifyLogin,
-    jsonValidator
+    jsonValidator,
+    checkIfJsonRepeatOrNotExists
 } = require('../middleware/agentMiddleware');
 
 const agentRouter = new Router({ prefix: '/agent' });
@@ -22,6 +23,6 @@ agentRouter.post('/registerAgent', userValidator, verifyAgent, handlePassword, c
 
 agentRouter.post('/login', userValidator, handlePassword, verifyLogin, login)
 // 校验json是否合法，是的话将json列表存入数据库
-agentRouter.post('/saveJson', jsonValidator, saveJson);
+agentRouter.post('/saveJson', jsonValidator, checkIfJsonRepeatOrNotExists, saveJson);
 
 module.exports = agentRouter;

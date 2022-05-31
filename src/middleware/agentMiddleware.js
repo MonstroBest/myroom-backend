@@ -1,5 +1,5 @@
 const errorTypes = require("../constants/error-types");
-const { getAgentName } = require("../service/agentService");
+const { getAgentName, getJsonByAuthorAndName, getJsonById } = require("../service/agentService");
 const passwordHandler = require("../utils/password-handler");
 const { jsonValidate } = require("../utils");
 /**
@@ -80,11 +80,36 @@ const jsonValidator = async (ctx, next) => {
     }
     await next();
 }
+/**
+ * 初次存储时检查该author下是否存在重名的name
+ * @param {*} ctx 
+ * @param {*} next 
+ * @returns 
+ */
+const checkIfJsonRepeatOrNotExists = async (ctx, next) => {
+    const { json, id } = ctx.request.body;
+    const { author, name } = JSON.parse(json);
+    if (!id) { // 没传id，说明是初次存储，需要检查是否有重复
+        const result = await getJsonByAuthorAndName(author, name);
+        if (result.length) {
+            const error = new Error(errorTypes.JSON_ALREADY_EXISTS);
+            return ctx.app.emit("error", error, ctx);
+        }
+    } else { // 传了id，说明是更新，需要检查是否存在
+        const result = await getJsonById(id);
+        if (!result.length) {
+            const error = new Error(errorTypes.JSON_NOT_EXISTS);
+            return ctx.app.emit("error", error, ctx);
+        }
+    }
+    await next();
+}
 
 module.exports = {
     userValidator,
     verifyAgent,
     handlePassword,
     verifyLogin,
-    jsonValidator
+    jsonValidator,
+    checkIfJsonRepeatOrNotExists
 };
