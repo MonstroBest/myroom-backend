@@ -22,6 +22,16 @@ class CustomerController {
         };
         await next();
     }
+
+    async getAgentHouse(ctx, next) {
+        const {page, pageSize} = ctx.query
+        const result = await service.getAgentHouse(page, pageSize);
+        //返回
+        ctx.body = {
+            agentHouse: result
+        };
+        await next();
+    }
 }
 
 module.exports = new CustomerController();

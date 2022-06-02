@@ -19,6 +19,13 @@ class CustomerService {
         // result数组有两部分，result[0]是查询到的多条结果，result[1]是表中的所有字段名
         return result[0];
     }
+
+    async getAgentHouse(page=1, pageSize=10) {
+        const statement = `SELECT * FROM agent_house LIMIT ${(page - 1)*pageSize}, ${pageSize}`;
+        const result = await connections.execute(statement);
+        // result数组有两部分，result[0]是查询到的多条结果，result[1]是表中的所有字段名
+        return result[0];
+    }
 }
 
 module.exports = new CustomerService();
