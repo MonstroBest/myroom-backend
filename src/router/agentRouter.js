@@ -29,6 +29,6 @@ agentRouter.post('/saveJson', jsonValidator, checkIfJsonRepeatOrNotExists, saveJ
 // 返回所有的json
 agentRouter.get('/getAllJson', getAllJson);
 // 根据id查找并返回对应json
-agentRouter.post('/getJson', getJsonById);
+agentRouter.get('/getJson', getJsonById);
 
 module.exports = agentRouter;

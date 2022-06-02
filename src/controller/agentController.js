@@ -80,7 +80,8 @@ class AgentController {
      * @param {*} next 
      */
     async getJsonById(ctx, next) {
-        const { id } = ctx.request.body;
+        // ctx.query中以对象的形式存放着GET请求的所有参数
+        const { id } = ctx.query;
         const res = await service.getJsonById(id);
         // 返回
         ctx.body = {
