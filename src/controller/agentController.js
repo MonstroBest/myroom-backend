@@ -53,6 +53,27 @@ class AgentController {
         };
         await next();
     }
+    /**
+     * 返回所有json的id和name
+     * @param {*} ctx 
+     * @param {*} next 
+     */
+    async getAllJson(ctx, next) {
+        const res = await service.getAllJson(ctx);
+        // res经处理后返回的结果，包含每条json的id和name
+        const rtnRes = [];
+        res.forEach(json => {
+            const { json_value, json_id } = json;
+            const jsonName = JSON.parse(json_value).name;
+            rtnRes.push({
+                jsonName,
+                jsonId: json_id
+            });
+        });
+        // 返回
+        ctx.body = rtnRes;
+        await next();
+    }
 }
 
 module.exports = new AgentController();

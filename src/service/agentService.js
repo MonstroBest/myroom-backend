@@ -44,7 +44,7 @@ class AgentService {
                 id: json_id
             };
         } else { // 存储过，进行修改
-            await this.updateJsonById({json, author, name}, id);
+            await this.updateJsonById({ json, author, name }, id);
             return {
                 message: `修改成功`,
                 id
@@ -61,7 +61,12 @@ class AgentService {
         const result = await connections.execute(statement, [id]);
         return result[0];
     }
-
+    /**
+     * 根据作者和json名字返回对应json
+     * @param {*} author 
+     * @param {*} name 
+     * @returns 
+     */
     async getJsonByAuthorAndName(author, name) {
         const statement = `SELECT * from json_table WHERE json_author = ? AND json_name = ?;`;
         const result = await connections.execute(statement, [author, name]);
@@ -80,6 +85,15 @@ class AgentService {
             WHERE json_id = ?
         ;`
         const result = await connections.execute(statement, [json, author, name, id]);
+        return result[0];
+    }
+    /**
+     * 返回所有json的值和id
+     * @returns 
+     */
+    async getAllJson() {
+        const statement = `SELECT json_value, json_id FROM json_table;`;
+        const result = await connections.execute(statement);
         return result[0];
     }
 }
