@@ -11,7 +11,7 @@ const errorHandler = require('./error-handler');
 // 使用koa-cors处理cors预检
 app.use(cors({
     // Origin
-    origin: 'http://localhost:8080',
+    origin: '*',
     // Access-Control-Allow-Methods
     methods: ['GET', 'POST'],
     // Access-Control-Allow-Headers
