@@ -24,7 +24,7 @@ class CustomerController {
     }
 
     async getAgentHouse(ctx, next) {
-        const {page, pageSize} = ctx.query
+        const { page, pageSize } = ctx.query
         const result = await service.getAgentHouse(page, pageSize);
         //返回
         ctx.body = {

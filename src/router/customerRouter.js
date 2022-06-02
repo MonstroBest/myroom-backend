@@ -7,7 +7,7 @@ const {
     getAgentHouse
 } = require('../controller/customerController')
 
-const customerRouter = new Router({prefix: '/customer'});
+const customerRouter = new Router({ prefix: '/customer' });
 // 获取所有json
 customerRouter.get('/getAllJson', getAllJson);
 // 获取所有房源信息
