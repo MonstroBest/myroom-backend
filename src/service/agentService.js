@@ -96,6 +96,16 @@ class AgentService {
         const result = await connections.execute(statement);
         return result[0];
     }
+    /**
+     * 根据id查询对应json
+     * @param {*} id 
+     * @returns 
+     */
+    async getJsonById(id) {
+        const statement = `SELECT * FROM json_table WHERE json_id = ?;`;
+        const result = await connections.execute(statement, [id]);
+        return result[0];
+    }
 }
 
 module.exports = new AgentService();

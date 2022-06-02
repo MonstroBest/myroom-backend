@@ -59,7 +59,7 @@ class AgentController {
      * @param {*} next 
      */
     async getAllJson(ctx, next) {
-        const res = await service.getAllJson(ctx);
+        const res = await service.getAllJson();
         // res经处理后返回的结果，包含每条json的id和name
         const rtnRes = [];
         res.forEach(json => {
@@ -72,6 +72,20 @@ class AgentController {
         });
         // 返回
         ctx.body = rtnRes;
+        await next();
+    }
+    /**
+     * 根据id返回对应json
+     * @param {*} ctx 
+     * @param {*} next 
+     */
+    async getJsonById(ctx, next) {
+        const { id } = ctx.request.body;
+        const res = await service.getJsonById(id);
+        // 返回
+        ctx.body = {
+            json: res[0]["json_value"]
+        };
         await next();
     }
 }

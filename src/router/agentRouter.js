@@ -6,7 +6,8 @@ const {
     createAgent,
     login,
     saveJson,
-    getAllJson
+    getAllJson,
+    getJsonById
 } = require('../controller/agentController');
 
 const {
@@ -27,7 +28,7 @@ agentRouter.post('/login', userValidator, handlePassword, verifyLogin, login)
 agentRouter.post('/saveJson', jsonValidator, checkIfJsonRepeatOrNotExists, saveJson);
 // 返回所有的json
 agentRouter.get('/getAllJson', getAllJson);
-// // 根据id查找并返回对应json
-// agentRouter.get('/getJson', getJson);
+// 根据id查找并返回对应json
+agentRouter.post('/getJson', getJsonById);
 
 module.exports = agentRouter;
