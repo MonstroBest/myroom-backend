@@ -32,6 +32,8 @@ app.loadRouters = loadRouters;
 app.use(async (ctx, next) => {
     // 这里不用async await，后面有异步代码直接寄
     ctx.set("Access-Control-Allow-Origin", "*");
+    ctx.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    ctx.set("Access-Control-Allow-Headers", "Authorization");
     await next();
 })
 app.loadRouters(app);
