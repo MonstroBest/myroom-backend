@@ -7,7 +7,9 @@ const {
     login,
     saveJson,
     getAllJson,
-    getJsonById
+    getJsonById,
+    getHouseList,
+    getHouseInfoById
 } = require('../controller/agentController');
 
 const {
@@ -30,5 +32,9 @@ agentRouter.post('/saveJson', jsonValidator, checkIfJsonRepeatOrNotExists, saveJ
 agentRouter.get('/getAllJson', getAllJson);
 // 根据id查找并返回对应json
 agentRouter.get('/getJson', getJsonById);
+// 返回所有楼盘的id和listing_name
+agentRouter.get('/getHouseList', getHouseList);
+// 根据楼盘id，返回对应楼盘的所有信息
+agentRouter.get('/getHouseInfo', getHouseInfoById);
 
 module.exports = agentRouter;

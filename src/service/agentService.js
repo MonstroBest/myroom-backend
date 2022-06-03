@@ -106,6 +106,25 @@ class AgentService {
         const result = await connections.execute(statement, [id]);
         return result[0];
     }
+    /**
+     * 返回所有楼盘的id和listing_name
+     * @returns 
+     */
+    async getHouseList() {
+        const statement = `SELECT id, listing_name FROM agent_house;`;
+        const result = await connections.execute(statement);
+        return result[0];
+    }
+    /**
+     * 根据id获取对应楼盘的所有信息
+     * @param {*} id 
+     * @returns 
+     */
+    async getHouseInfoById(id) {
+        const statement = `SELECT * FROM agent_house WHERE id = ?;`;
+        const result = await connections.execute(statement, [id]);
+        return result[0];
+    }
 }
 
 module.exports = new AgentService();

@@ -89,6 +89,32 @@ class AgentController {
         };
         await next();
     }
+    /**
+     * 获取所有楼盘的id和listing_name
+     * @param {*} ctx 
+     * @param {*} next 
+     */
+    async getHouseList(ctx, next) {
+        const res = await service.getHouseList();
+        // 返回
+        ctx.body = {
+            houseList: res
+        }
+    }
+    /**
+     * 根据id查询对应楼盘的所有信息
+     * @param {*} ctx 
+     * @param {*} next 
+     */
+    async getHouseInfoById(ctx, next) {
+        // ctx.query中以对象的形式存放着GET请求的所有参数
+        const { id } = ctx.query;
+        const res = await service.getHouseInfoById(id);
+        // 返回
+        ctx.body = {
+            houseInfo: res[0]
+        }
+    }
 }
 
 module.exports = new AgentController();
