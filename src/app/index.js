@@ -22,12 +22,12 @@ app.loadRouters = loadRouters;
 // 要先加载bodyparser中间件再加载路由
 app.use(bodyParser({
     // 记得配置
-    formidable: {
-        // 文件上传到哪个文件夹下
-        uploadDir: path.join(__dirname, '../uploads')
-    },
-    multipart: true,
-    urlencoded: true
+    // formidable: {
+    //     // 文件上传到哪个文件夹下
+    //     uploadDir: path.join(__dirname, '../uploads')
+    // },
+    // multipart: true,
+    // urlencoded: true
 }));
 app.use(async (ctx, next) => {
     // 这里不用async await，后面有异步代码直接寄
