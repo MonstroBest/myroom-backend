@@ -85,7 +85,8 @@ class AgentController {
         const res = await service.getJsonById(id);
         // 返回
         ctx.body = {
-            json: res[0]["json_value"]
+            json: res[0]["json_value"],
+            id
         };
         await next();
     }
