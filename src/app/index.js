@@ -13,7 +13,7 @@ app.use(cors({
     // Origin
     origin: '*',
     // Access-Control-Allow-Methods
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST', 'OPTIONS', 'PUT'],
     // Access-Control-Allow-Headers
     headers: ['Content-Type', 'Authorization']
 }));
@@ -31,7 +31,7 @@ app.loadRouters = loadRouters;
 // }));
 app.use(async (ctx, next) => {
     // 这里不用async await，后面有异步代码直接寄
-    ctx.set("Access-Control-Allow-Origin", "http://180.184.74.142");
+    ctx.set("Access-Control-Allow-Origin", "*");
     await next();
 })
 app.loadRouters(app);
